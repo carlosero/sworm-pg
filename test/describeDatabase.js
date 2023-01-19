@@ -22,11 +22,12 @@ module.exports = function(name, config, database, otherTests) {
           return fs.rename(moduleName + ".missing", moduleName);
         });
 
-        it("throws an exception if the driver module is not present", function() {
-          return expect(function() {
-            sworm.db(config).connect();
-          }).to.throw("npm install " + database.driverModuleName);
-        });
+        // FORK: Not anymore, pg is required directly
+        // it("throws an exception if the driver module is not present", function() {
+        //   return expect(function() {
+        //     sworm.db(config).connect();
+        //   }).to.throw("npm install " + database.driverModuleName);
+        // });
       });
     }
 

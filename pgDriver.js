@@ -4,10 +4,9 @@ var debug = require('debug')('sworm:pg');
 var urlUtils = require('url');
 var _ = require('underscore')
 var paramRegex = require('./paramRegex')
+const pg = require('pg')
 
 module.exports = function() {
-  var pg = optionalRequire("pg");
-
   return {
     query: function(query, params, options) {
       var self = this;

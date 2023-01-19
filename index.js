@@ -1,11 +1,6 @@
 var crypto = require("crypto");
 var _ = require("underscore");
-var mssqlDriver = require("./mssqlDriver");
 var pgDriver = require("./pgDriver");
-var mysqlDriver = require("./mysqlDriver");
-var oracleDriver = require("./oracleDriver");
-var sqliteDriver = require("./sqliteDriver");
-var websqlDriver = require("./websqlDriver");
 var debug = require("debug")("sworm");
 var debugResults = require("debug")("sworm:results");
 var redactConfig = require('./redactConfig');
@@ -578,12 +573,7 @@ exports.db = function(config) {
       debug('connecting to', redactConfig(this.config));
 
       var driver = {
-          mssql: mssqlDriver,
           pg: pgDriver,
-          mysql: mysqlDriver,
-          oracle: oracleDriver,
-          sqlite: sqliteDriver,
-          websql: websqlDriver
       }[this.config.driver];
 
       if (!driver) {
@@ -698,8 +688,6 @@ function configFromUrl(url) {
   var protocol = parsedUrl.protocol? parsedUrl.protocol.replace(/:$/, ''): (isBrowser? 'websql': 'sqlite')
   var driver = {
     postgres: 'pg',
-    file: 'sqlite',
-    mssql: 'mssql'
   }[protocol] || protocol
 
   return {
